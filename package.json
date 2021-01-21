@@ -1,0 +1,20 @@
+{
+  "name": "agenciaperform-com-br",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Filipe Batista <filipe.x@live.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node server",
+    "knex:migrate": "knex --knexfile knexfile.js migrate:latest",
+    "knex:migrate:rollback": "knex --knexfile knexfile.js migrate:rollback",
+    "postinstall": "node ./scripts/skip.js || next start"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "knex": "^0.21.16",
+    "mysql": "^2.18.1",
+    "path": "^0.12.7"
+  }
+}

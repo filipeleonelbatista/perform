@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://diginess.vercel.app/sitemap.xml
