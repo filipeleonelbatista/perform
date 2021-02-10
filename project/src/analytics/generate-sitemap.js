@@ -18,8 +18,9 @@ const prettier = require('prettier');
                 const path = page
                   .replace('pages', '')
                   .replace('.js', '')
-                  .replace('.mdx', '');
-                const route = path === '/index' ? '' : path;
+                  .replace('.mdx', '')
+                  .replace('src//','');
+                const route = path === 'index' ? '' : path;
                 return `
                         <url>
                             <loc>${`https://agenciaperform.com.br/${route}`}</loc>

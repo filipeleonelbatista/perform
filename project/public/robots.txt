@@ -1,2 +1,2 @@
 User-agent: *
-Sitemap: https://diginess.vercel.app/sitemap.xml
+Sitemap: https://agenciaperform.com.br/sitemap.xml

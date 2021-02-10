@@ -194,11 +194,11 @@ export default function SobreNosPage() {
             <Banner />
             <PartnerSection />
             <WorkFlow />
-            <ContactForm />
+            <ContactForm location="Página Sobre nós" />
           </Layout>
         </StickyProvider>
       </ThemeProvider>
-      <Floating />
+      <Floating location="Página Sobre nós" />
     </div>
   );
 }

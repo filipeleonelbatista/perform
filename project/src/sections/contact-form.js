@@ -4,15 +4,38 @@ import { Container, Grid, Button } from 'theme-ui';
 import { useState } from 'react';
 import SectionHeader from 'components/section-header';
 
-export default function ContactForm() {
+import api from 'services/api';
+export default function ContactForm({
+  location = ""
+}) {
 
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [msg, setMsg] = useState("");
 
-  function handleSendMessage() {
-    window.confirm(name + " " + phone + " " + msg);
+  async function handleSendMessage() {
+
+    let myIp;
+
+    await fetch("https://api.ipify.org/?format=json")
+      .then(results => results.json())
+      .then(data => {
+        myIp = data.ip
+      })
+
+    const data = {
+      ip: myIp,
+      tipoContato: "Formulário de contato " + location,
+      celular: phone,
+      email: email,
+      nome: name,
+      mensagem: msg,
+      feitoContato: false,
+      convertido: true
+    }
+    const result = await api.post("/api/v1/contatos", data)
+
   }
 
   return (
@@ -105,14 +128,16 @@ const styles = {
   formInput: {
     fontFamily: "Leigo",
     width: '100%',
-    height: '1.8rem',
-    padding: '1.8rem',
+    height: '48px',
+    border: '1px solid #000035',
+    padding: '0.8rem',
     borderRadius: '0.8rem',
     borderWidth: '3px',
-    fontSize: 18,
+    fontSize: 14,
+    fontWeight: 600,
     outline: 'none',
     transition: 'all 0.25s',
-    '&.focus': {
+    '&:focus': {
       borderColor: '#007acc',
     },
   },
@@ -120,12 +145,14 @@ const styles = {
     width: '100%',
     height: 'auto',
     padding: '0.8rem',
+    border: '1px solid #000035',
     borderRadius: '0.8rem',
     borderWidth: '3px',
-    fontSize: 18,
+    fontSize: 14,
+    fontWeight: 600,
     outline: 'none',
     transition: 'all 0.25s',
-    '&.focus': {
+    '&:focus': {
       borderColor: '#007acc',
     },
   },

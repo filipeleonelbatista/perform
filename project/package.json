@@ -7,9 +7,11 @@
     "build": "next build",
     "serve": "next start",
     "export": "next export",
-    "postbuild": "next-sitemap"
+    "prebuild":"node .\\src\\analytics\\generate-sitemap.js",
+    "postbuild": "next export"
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "dotenv": "^8.2.0",
     "framer-motion": "^2.7.5",
     "globby": "^11.0.0",

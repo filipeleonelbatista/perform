@@ -16,7 +16,11 @@ export default function Header({ className }) {
   if(router.asPath === "/"){
     menuItems = headerData.home;
   }else{
-    menuItems = headerData.aboutus;
+    if(router.asPath === "/marketing-digital"){
+      menuItems = headerData.mkt;
+    }else{
+      menuItems = headerData.aboutus;
+    }
   }
   return (
     <DrawerProvider>
@@ -32,7 +36,7 @@ export default function Header({ className }) {
                     activeClass="active"
                     sx={
                         router.asPath === path ? 
-                          {color: "#25CB9E", textDecoration: "none" } 
+                          {color: "#000035", textDecoration: "none" } 
                           : 
                           ( className === 'sticky' ? 
                               {color: "#000", textDecoration: "none"} 
@@ -71,7 +75,7 @@ export default function Header({ className }) {
               fontWeight: 500,
 
               padding: '0.8rem 1.4rem',
-              backgroundColor: '#333',
+              backgroundColor: '#000035',
               borderRadius: '1.8rem',
               color: '#FFF',
               transition: '0.3s',

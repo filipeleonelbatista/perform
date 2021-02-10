@@ -8,7 +8,7 @@ const routes = require("./src/routes");
 const configs = {
     caminho: path.join("project","out"), //Aqui será definido a pasta de saída onde contém o index.html e os outros arquivos.
     forcarHTTPS: true, //Defina para true se desejar que o redirecionamento para HTTPS seja forçado (é necessário certificado SSL ativo)
-    port: process.env.PORT || 3000
+    port: process.env.PORT || 3333
 }
 
 if (configs.forcarHTTPS) //Se o redirecionamento HTTP estiver habilitado, registra o middleware abaixo
@@ -21,6 +21,9 @@ if (configs.forcarHTTPS) //Se o redirecionamento HTTP estiver habilitado, regist
 
 app.use(express.static(path.join(__dirname, configs.caminho))); //Serve os outros arquivos, como CSSs, Javascripts, Imagens etc.
 
+// Admin area
+app.use(express.static(path.join(__dirname, "admin", "build"))); //Serve os outros arquivos, como CSSs, Javascripts, Imagens etc.
+
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, configs.caminho, "index.html"));
 });
@@ -30,11 +33,22 @@ app.get("/links", (req, res) => {
 app.get("/sobre-nos", (req, res) => {
     res.sendFile(path.join(__dirname, configs.caminho, "sobre-nos.html"));
 });
+app.get("/marketing-digital", (req, res) => {
+    res.sendFile(path.join(__dirname, configs.caminho, "marketing-digital.html"));
+});
+
+//Admin area
+app.get("/admin", (req, res) => {
+    res.sendFile(path.join(__dirname, "admin", "build", "index.html"));
+});
+app.get("/admin/*", (req, res) => {
+    res.sendFile(path.join(__dirname, "admin", "build", "index.html"));
+});
 
 app.use(cors());
 app.use(express.json());
 app.use(routes);
 
 app.listen(configs.port, () => {
-    console.log(`Escutando na ${configs.port}!`);
+    console.log(`Servidor iniciado em http://localhost:${configs.port}`);
 });

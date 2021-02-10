@@ -3,7 +3,11 @@ import {
   FaWhatsapp
 } from 'react-icons/fa';
 
-export default function Floating() {
+import api from 'services/api';
+
+export default function Floating({
+  location = ""
+}) {
   const [whatsNome, setWhatsNome] = useState("");
   const [whatsFone, setWhatsFone] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
@@ -18,7 +22,7 @@ export default function Floating() {
     return () => clearTimeout(timer);
   },[]);
 
-  function handleSubmitForm(){
+  async function handleSubmitForm(){
     if(whatsNome === ""){
       setErrorMsg("Nome não foi digitado!");
       
@@ -54,6 +58,27 @@ export default function Floating() {
     let whatsPhone = `5551986445578`;
     let whatsMsg = `Olá, me chamo ${whatsNome} e gostaria de conhecer mais sobre seu serviços.` ;
     let url = `https://api.whatsapp.com/send?phone=${whatsPhone}&text=${encodeURI(whatsMsg)}`;
+
+    let myIp;
+
+    await fetch("https://api.ipify.org/?format=json")
+      .then(results => results.json())
+      .then(data => {
+        myIp = data.ip
+      })
+
+    const data = {
+      ip: myIp,
+      tipoContato: "Botão Flutuante Whatsapp " + location,
+      celular: whatsFone,
+      email: "",
+      nome: whatsNome,
+      mensagem: "",
+      feitoContato: false,
+      convertido: true
+    }
+    const result = await api.post("/api/v1/contatos", data)
+
     window.open(url, "_blank");
 
     setErrorMsg("");

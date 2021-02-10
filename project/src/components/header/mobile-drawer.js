@@ -39,7 +39,11 @@ const MobileDrawer = () => {
   if(router.asPath === "/"){
     menuItems = headerData.home;
   }else{
-    menuItems = headerData.aboutus;
+    if(router.asPath === "/marketing-digital"){
+      menuItems = headerData.mkt;
+    }else{
+      menuItems = headerData.aboutus;
+    }
   }
 
   const { state, dispatch } = useContext(DrawerContext);

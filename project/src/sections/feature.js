@@ -17,7 +17,7 @@ const data = [
     altText: 'Google Ads',
     title: 'Google Ads',
     text:
-      'Apareça nos primeiros lugares nos anúncios do google, venda mais, receba mais chamadas e visitas ao seu site!',
+      'Forma mais rápida e lucrativa de chegar até o cliente que busca por seus produtos e serviços. Acelere suas vendas, receba mais chamadas e visitas no seu site!',
   },
   {
     id: 2,
@@ -25,7 +25,7 @@ const data = [
     altText: 'Branding',
     title: 'Branding',
     text:
-      'Atualize a identidade visual da sua empresa, de mais personalidade a sua marca e encante seus clientes.',
+      'Sua marca precisa brilhar e se destacar. Criamos marcas memoráveis. Ajudamos a encontrar o propósito da sua marca que irá guiar a sua forma de se comunicar e vender.',
   },
   {
     id: 3,
@@ -33,7 +33,7 @@ const data = [
     altText: 'Social Media',
     title: 'Social Media',
     text:
-      'Interaja com seu público, se aproxime dos seus clientes, fidelize a confiança deles com sua marca por meio das redes sociais.',
+      'Se conecte e se relacione com seus clientes através das redes sociais para vender mais e melhor. Faça sua marca mais conhecida e fidelize clientes.',
   },
   {
     id: 4,
@@ -41,7 +41,7 @@ const data = [
     altText: 'Site',
     title: 'Site',
     text:
-      'Criamos o site ideal para sua empresa, que se adeque tanto para o computador quanto para smartphones.',
+      'Seu espaço no ambiente virtual. Criamos o site perfeito que será seu escritório e loja online para vender mais através da internet.',
   },
   {
     id: 5,
@@ -49,7 +49,7 @@ const data = [
     altText: 'Hospedagem',
     title: 'Hospedagem',
     text:
-      'Hospedamos seu site com um suporte ágil e dedicado..',
+      'Seu site hospedado de forma segura e confiável com suporte àgil e dedicado',
   },
   {
     id: 6,
@@ -57,7 +57,7 @@ const data = [
     altText: 'SEO',
     title: 'SEO',
     text:
-      'O Seu site precisa crescer de forma orgânica e ficar ranqueado nas principais posições nos mecanismos de buscas.',
+      'Olhar dedicado e atento aos detalhes que fazem seu site e sua marca terem mais visibilidade e acessos na internet, aparecendo entre os primeiros colocados nas páginas do Google.',
   },
 ];
 
@@ -66,8 +66,8 @@ export default function Feature() {
     <section sx={{ variant: 'section.feature' }} id="feature">
       <Container>
         <SectionHeader
-          slogan="Mais serviços"
-          title="Outros serviços que oferecemos que podem te ajudar a ir além"
+          slogan="Principais serviços"
+          title="Serviços que fazem parte do nosso plano de vôo para sua jornada"
         />
 
         <Grid sx={styles.grid}>

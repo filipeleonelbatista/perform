@@ -13,6 +13,8 @@ import TestimonialCard from 'sections/testimonial';
 import Package from 'sections/package';
 import ContactForm from 'sections/contact-form';
 
+import api from 'services/api';
+
 import Modal from 'react-modal';
 
 import imgModal from '../assets/Marketing-Digital.png'
@@ -40,27 +42,50 @@ export default function IndexPage() {
   const [celular, setCelular] = useState("");
   const [email, setEmail] = useState("");
 
-  function handleSaveModalForm(){
-    if((celular === "")||(celular === "")) {
+  async function handleSaveModalForm() {
+    if ((celular === "") || (celular === "")) {
       return closeModal();
     }
 
-    window.confirm(`Você digitou ${celular} e ${email}`);
-    closeModal();
+    let myIp;
+
+    await fetch("https://api.ipify.org/?format=json")
+      .then(results => results.json())
+      .then(data => {
+        myIp = data.ip
+      })
+
+    const data = {
+      ip: myIp,
+      tipoContato: "Modal retenção",
+      celular: celular,
+      email: email,
+      nome: "",
+      mensagem: "",
+      feitoContato: false,
+      convertido: true
+    }
+    const result = await api.post("/api/v1/contatos", data)
+    if (result.status == 201) {
+      closeModal();
+      sessionStorage.setItem('modal', false);
+      setIsOpen(false);
+      return
+    }
   }
 
   function openModal() {
-    // const modal = sessionStorage.getItem('modal');
-    // if(modal === null){
-    //   sessionStorage.setItem('modal', true);
-    // }
-    // if(modal === 'false'){
-    //   sessionStorage.setItem('modal', false);      
-    //   setIsOpen(false);
-    // }else{
-    //   setIsOpen(true);
-    //   sessionStorage.setItem('modal', true);
-    // }
+    const modal = sessionStorage.getItem('modal');
+    if (modal === null) {
+      sessionStorage.setItem('modal', true);
+    }
+    if (modal === 'false') {
+      sessionStorage.setItem('modal', false);
+      setIsOpen(false);
+    } else {
+      setIsOpen(true);
+      sessionStorage.setItem('modal', true);
+    }
   }
 
   function afterOpenModal() {
@@ -91,17 +116,17 @@ export default function IndexPage() {
           zIndex: '1000',
         }}>
           <div style={{
-              width:'25rem',
-            }}>
+            width: '25rem',
+          }}>
             <img src={imgModal} style={{
-              width:'inherit',
+              width: 'inherit',
               height: '100%',
               objectFit: 'cover',
             }} />
           </div>
           <div style={{
-              width:'25rem',
-            }}>
+            width: '25rem',
+          }}>
             <div style={{
               display: 'flex',
               flexDirection: 'row',
@@ -125,7 +150,7 @@ export default function IndexPage() {
             </div>
             <div style={{
               padding: '0.8rem 1.8rem',
-              }}>
+            }}>
               <p>Cadastre-se gratuitamente e receba um passo a passo de como iniciar no marketing digital</p>
               <div style={{
                 display: 'flex',
@@ -134,14 +159,14 @@ export default function IndexPage() {
                 <label style={{
                   fontWeight: 'bolder',
                   color: '#000'
-                }}  htmlFor="phone">Celular</label>
+                }} htmlFor="phone">Celular</label>
                 <input style={{
                   width: '100%',
                   height: 'auto',
                   padding: '0.8rem',
                   borderRadius: '0.8rem',
                   fontSize: 18,
-                }} id="phone" value={celular} onChange={(e) => {setCelular(e.target.value)}} />
+                }} id="phone" value={celular} onChange={(e) => { setCelular(e.target.value) }} />
               </div>
               <div style={{
                 display: 'flex',
@@ -158,12 +183,12 @@ export default function IndexPage() {
                   padding: '0.8rem',
                   borderRadius: '0.8rem',
                   fontSize: 18,
-                }} id="email" value={email} onChange={(e) => {setEmail(e.target.value)}} />
+                }} id="email" value={email} onChange={(e) => { setEmail(e.target.value) }} />
               </div>
               <button style={{
-                  fontWeight: 'bolder',
-                  color: '#fff',
-                  backgroundColor: '#333',
+                fontWeight: 'bolder',
+                color: '#fff',
+                backgroundColor: '#333',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -176,12 +201,12 @@ export default function IndexPage() {
               }} onClick={handleSaveModalForm}>Eu quero receber</button>
             </div>
             <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                borderTop: '2px Solid #CCC',
-                padding: '1.4rem',
-              }}>
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderTop: '2px Solid #CCC',
+              padding: '1.4rem',
+            }}>
               Não enviamos span!
             </div>
           </div>
@@ -197,11 +222,11 @@ export default function IndexPage() {
             <WorkFlow />
             <TestimonialCard />
             <Package />
-            <ContactForm />
+            <ContactForm location="Página inicial" />
           </Layout>
         </StickyProvider>
       </ThemeProvider>
-      <Floating />
+      <Floating location="Página inicial" />
     </div>
   );
 }

@@ -42,5 +42,16 @@ export default {
       path: '/#pricing',
       label: 'Preços',
     },
+  ],  
+  mkt:[
+    {
+      path: '/',
+      label: 'Inicio',
+    },
+    {
+      path: '/sobre-nos',
+      label: 'Sobre nós',
+    },
   ],
+
 };
